@@ -1,9 +1,6 @@
-console.log("index.js: loaded");
-
-// CSSセレクタを使ってDOMツリー中のh2要素を取得する
-const heading = document.querySelector("h2");
-// h2要素に含まれるテキストコンテンツを取得する
-const headingText = heading.textContent;
+function main() {
+    fetchUserInfo("js-primer-example")
+}
 
 function fetchUserInfo(userId) {
   fetch(`https://api.github.com/users/${encodeURIComponent(userId)}`)
@@ -15,24 +12,32 @@ function fetchUserInfo(userId) {
           } else {
               return response.json().then(userInfo => {
 
-                const view = escapeHTML`
-                <h4>${userInfo.name} (@${userInfo.login})</h4>
-                <img src="${userInfo.avatar_url}" alt="${userInfo.login}" height="100">
-                <dl>
-                    <dt>Location</dt>
-                    <dd>${userInfo.location}</dd>
-                    <dt>Repositories</dt>
-                    <dd>${userInfo.public_repos}</dd>
-                </dl>
-                `;
+                const view = createView(userInfo);
                 
-                const result = document.getElementById("result");
-                result.innerHTML = view;
+                displayView(view);
               });
           }
       }).catch(error => {
           console.error(error);
       });
+}
+
+function createView(userInfo) {
+    return escapeHTML`
+    <h4>${userInfo.name} (@${userInfo.login})</h4>
+    <img src="${userInfo.avatar_url}" alt="${userInfo.login}" height="100">
+    <dl>
+        <dt>Location</dt>
+        <dd>${userInfo.location}</dd>
+        <dt>Repositories</dt>
+        <dd>${userInfo.public_repos}</dd>
+    </dl>
+    `;
+}
+
+function displayView(view) {
+    const result = document.getElementById("result");
+    result.innerHTML = view;
 }
 
 function escapeSpecialChars(str) {
