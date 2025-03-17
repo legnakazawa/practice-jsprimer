@@ -1,0 +1,2 @@
+# Node.jsの依存関係を格納するディレクトリを無視
+node_modules/
