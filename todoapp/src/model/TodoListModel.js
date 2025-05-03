@@ -1,9 +1,7 @@
-import { EventEmitter } from "../EventEmitter";
+import { EventEmitter } from "../EventEmitter.js";
 
 export class TodoListModel extends EventEmitter {
-    /** @type {TodoItemModel[]} */
     #items;
-
     /**
      * @param {TodoItemModel[]} [items] 初期アイテム一覧（デフォルトは空の配列）
      */
@@ -33,7 +31,7 @@ export class TodoListModel extends EventEmitter {
      * @param {Function} listener
      */
     onChange(listener) {
-        this.addEventListner("change", listener);
+        this.addEventListener("change", listener);
     }
 
     /**
@@ -51,5 +49,4 @@ export class TodoListModel extends EventEmitter {
         this.#items.push(todoItem);
         this.emitChange();
     }
-    
 }
