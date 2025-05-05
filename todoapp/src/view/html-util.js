@@ -29,3 +29,4 @@ export function render(bodyElement, containerElement) {
   containerElement.innerHTML = "";
   containerElement.appendChild(bodyElement);
 }
+
